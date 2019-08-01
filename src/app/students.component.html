@@ -1,32 +1,53 @@
 <div style="text-align:center">
   <input [(ngModel)]="query" placeholder="filter" type="text">
+  <select (change)="onChange($event.target.value)" name="orderBy" id="order">
+    <option value="">Order by</option>
+    <option value="name">Name</option>
+  </select>
+  <button (click)="openForm()">New</button>
+
   <div class="wrapper">
-  <table class="item">
-    <thead>
-      <th>Name</th>
-      <th>Therapies</th>
-    </thead>
-    <tbody>
-      <tr
-      *ngFor="let student of students | studentPipe : query; let id = index">
-        <td>
-          <span
-          (keyup)="changeValue(id, 'name', $event)"
-          (blur)="updateList(id, 'name', $event)"
-          contenteditable="true">
-          {{student.name}}
-          </span>
-        </td>
-        <td>
-          <span
-          (keyup)="changeValue(id, 'therapies', $event)"
-          (blur)="updateList(id, 'therapies', $event)"
-          contenteditable="true">
-          {{student.therapies}}
-          </span>
-        </td>
-     </tr>
-    </tbody>
-  </table>
+    <div *ngIf="showForm" class="item add-element">
+      <div>
+        <input [(ngModel)]="student.name" placeholder="name" type="text">
+      </div>
+      <div>
+        <input [(ngModel)]="student.therapies" placeholder="therapies" type="text">
+      </div>
+      <button (click)="addStudent()">Add</button>
+    </div>
+    <table class="item">
+      <thead>
+        <th>Name</th>
+        <th>Therapies</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        <tr
+        *ngFor="let student of students | studentPipe : query; let id = index">
+          <td>
+            <span
+            (keyup)="changeValue(id, 'name', $event)"
+            (blur)="updateList(id, 'name', $event)"
+            contenteditable="true">
+            {{student.name}}
+            </span>
+          </td>
+          <td>
+            <span
+            (keyup)="changeValue(id, 'therapies', $event)"
+            (blur)="updateList(id, 'therapies', $event)"
+            contenteditable="true">
+            {{student.therapies}}
+            </span>
+          </td>
+          <td>
+            <button (click)="deleteElement(id, $event)">
+              Delete
+            </button>
+          </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
