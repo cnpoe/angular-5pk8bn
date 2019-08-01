@@ -1,0 +1,32 @@
+<div style="text-align:center">
+  <input [(ngModel)]="query" placeholder="filter" type="text">
+  <div class="wrapper">
+  <table class="item">
+    <thead>
+      <th>Name</th>
+      <th>Therapies</th>
+    </thead>
+    <tbody>
+      <tr
+      *ngFor="let student of students | studentPipe : query; let id = index">
+        <td>
+          <span
+          (keyup)="changeValue(id, 'name', $event)"
+          (blur)="updateList(id, 'name', $event)"
+          contenteditable="true">
+          {{student.name}}
+          </span>
+        </td>
+        <td>
+          <span
+          (keyup)="changeValue(id, 'therapies', $event)"
+          (blur)="updateList(id, 'therapies', $event)"
+          contenteditable="true">
+          {{student.therapies}}
+          </span>
+        </td>
+     </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
